@@ -9,9 +9,8 @@ host_ip = socket.gethostbyname(socket.gethostname())
 print("Hosts ip is: %s\n" % host_ip)
 
 def newClient(connection):
-    print(connection)
     connection.send(("=== Welcome to the chat! ===\nPlease enter a nickname: ").encode())
-    nick = connection.recv(4096).decode('utf-8').strip()
+    nick = connection.recv(2048).decode('utf-8').strip()
     connections[connection] = nick
 
     while True:
@@ -20,15 +19,18 @@ def newClient(connection):
             connection.send("You have been disconnected.\n".encode())
             print("{} - has been disconnected.".format(nick))
 
+            connection.close()
+            del connections[connection]
+
             for con in connections:
-                if con != connection:
-                    connection.send(("{} has been disconnected".format(nick)).encode())
-            break
+                con.send(("{} has been disconnected".format(nick)).encode())
+            exit()
+            sys.exit()
         if message:
             print("{} says: {}".format(nick, message))
             for con in connections:
-                if con != connection:
-                    con.send((message + "\n").encode())
+                if not (con == connection):
+                    con.send(("{}: {}\n".format(nick, message)).encode())
 
 with socket.socket() as s:
     s.bind((host_ip, port))
