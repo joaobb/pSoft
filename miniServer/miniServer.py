@@ -9,8 +9,9 @@ host_ip = socket.gethostbyname(socket.gethostname())
 print("Hosts ip is: %s\n" % host_ip)
 
 def newClient(connection):
-    connection.send("=== Welcome to the chat! ===\nPlease enter a nickname: ".encode())
-    nick = connection.recv(2048)
+    print(connection)
+    connection.send(("=== Welcome to the chat! ===\nPlease enter a nickname: ").encode())
+    nick = connection.recv(4096).decode('utf-8').strip()
     connections[connection] = nick
 
     while True:
@@ -36,9 +37,10 @@ with socket.socket() as s:
     
     while True:
         connection, address = s.accept()
-        with connection:
-            print("{}:{} connected to the server".format(address[0], address[1]))
-            Thread(target=newClient, args=(connection,)).start()
+        # with connection:
+        print("{}:{} connected to the server".format(address[0], address[1]))
+        print(connection)
+        Thread(target=newClient, args=(connection,)).start()
         
 
     #with connection:
