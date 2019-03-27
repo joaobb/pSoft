@@ -36,7 +36,7 @@ def serverControl(socket, port, host_ip):
     while True:
         command = input()
 
-        if command == ":bye":
+        if command == ":terminate":
             os.system("sudo lsof -i :{} & ".format(port))
             for con in connections:
                 con.send("Closing the server... cya\n".encode())
@@ -44,7 +44,8 @@ def serverControl(socket, port, host_ip):
             socket.close()
             print("Closing every program connected to port %i" % port)
             #Check if it works without sudo access
-            os.system("lsof -n -i4TCP:%i | tr -s ' ' | cut -d' ' -f2 | grep -E [[:digit:]] | xargs kill" % port)
+            if connections:
+                os.system("lsof -n -i4TCP:%i | tr -s ' ' | cut -d' ' -f2 | grep -E [[:digit:]] | xargs kill" % port)
             exit()
 
         elif command[:6] == ":send ":
@@ -54,7 +55,7 @@ def serverControl(socket, port, host_ip):
         elif command == ":h":
             print('\033[1m' + "\n=== LilChat HELPER === \n\nnc {} {} ".format(host_ip, port) + '\033[0m' + " - Connects to this miniChat server from another terminal.")
             print('\033[1m' + "\nOPTIONS:\n   :send [message]" + '\033[0m' + " - Send a message for every client connected.")
-            print('\033[1m' + "              :bye" + '\033[0m' + " - Closes the server and every client connected.")
+            print('\033[1m' + "        :terminate" + '\033[0m' + " - Closes the server and every client connected.")
             print('\033[1m' + "                :h" + '\033[0m' + " - Shows server manager options.\n")
         else:
             print("=== Entered command is invalid ===")
