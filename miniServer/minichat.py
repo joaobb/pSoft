@@ -1,3 +1,6 @@
+#Joao Pedro de Barros Barbosa
+#117210327
+
 import socket
 import sys
 from threading import Thread
