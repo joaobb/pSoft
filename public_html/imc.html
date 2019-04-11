@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>=== IMC Calculator ===</title>        
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1>Insert your data to calcule your IMC</h1>
+        <p>Insert your peso:  <input id="peso_inp" step="any" placeholder="KG" onkeyup="imc_calculator()"></p>
+        <p>Insert your altura: <input id="altura_inp" step="any" placeholder="Meters" onkeyup="imc_calculator()"></p>
+        <p id='result'>=== Type your info above ===</p>
+
+        <script>
+            function imc_calculator() {
+                var peso = (parseFloat(document.getElementById('peso_inp').value) || 0);
+                var altura = (parseFloat(document.getElementById('altura_inp').value) || 1);
+                var classification;
+                var result = (peso / altura**2).toFixed(2);
+
+                if (result < 18.5) {
+                    classification = "Magreza";
+                } else if (result < 25) {
+                    classification = "Saudavel"
+                } else if (result < 30) {
+                    classification = "Sobrepeso"
+                } else if (result < 35) {
+                    classification = "Obesidade I"
+                } else if (result < 40) {
+                    classification = "Obesidade II"
+                } else {
+                    classification = "Obesidade III"
+                }
+
+                document.getElementById('result').innerHTML = "Your IMC is: " + result + "\n And you are in: " + classification;
+
+            }
+        </script>
+
+    </body>
+
+
+</html>

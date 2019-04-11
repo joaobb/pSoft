@@ -11,7 +11,7 @@ def parse_request(mensagem):
     try:
         mensagem = mensagem.decode('utf-8').split("\r\n")
         mppRaw = mensagem[0].split()
-
+        print(mensagem)
         #Every method available on the server
         methods = ["GET"]
         #Every accessible path on the server

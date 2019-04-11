@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Comic Sans';
+    src: url("Comic Sans MS.ttf");
+}
+
+body {   
+    font-family: 'Comic Sans';
+    margin: 10;
+    background-color: #ffed9e;
+    color: greenyellow;
+    text-align: center;
+}
+
+h1#Brancas {
+    color: blueviolet;
+}
