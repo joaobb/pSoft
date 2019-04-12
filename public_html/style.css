@@ -5,14 +5,30 @@
     src: url("Comic Sans MS.ttf");
 }
 
-body {   
+#profile #box{
+    background-color: green;
+}
+
+#index #box {   
     font-family: 'Comic Sans';
     margin: 10;
-    background-color: #ffed9e;
+    background-color: green;
     color: greenyellow;
     text-align: center;
+}
+#home #body {
+    background: green;
+}
+
+body {
+    background-color: aliceblue;
 }
 
 h1#Brancas {
     color: blueviolet;
 }
+
+img#profile_pic {
+    border-radius: 50%;
+}
+
