@@ -5,30 +5,62 @@
     src: url("Comic Sans MS.ttf");
 }
 
-#profile #box{
-    background-color: green;
-}
-
-#index #box {   
+header {
+    width: 100%;
+    height: 58px;
+    background: black;
+    color: white;
     font-family: 'Comic Sans';
-    margin: 10;
-    background-color: green;
-    color: greenyellow;
-    text-align: center;
-}
-#home #body {
-    background: green;
+
 }
 
+footer {
+    width: 100%;
+    height: 30px;
+    position: fixed;
+    bottom:0px;
+    background: #40444c;
+}
+
+* {
+    margin: 0;
+}
 body {
-    background-color: aliceblue;
-}
-
-h1#Brancas {
-    color: blueviolet;
+    background-color: green;
+    text-align: center;
 }
 
 img#profile_pic {
     border-radius: 50%;
+}
+
+.topnav {
+    background-color: black;
+    overflow: hidden
+}
+
+.home {
+    float: left;
+    color: white;
+    padding: 17px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a {
+    float: right;
+    color: white;
+    padding: 17px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a.home {
+    float: left;
+}
+
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
 }
 

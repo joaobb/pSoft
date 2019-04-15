@@ -7,10 +7,18 @@
     </head>
 
     <body>
+        <header>
+            <a class="home" href="index.html">Fresco</a>
+            <div class="topnav">
+                <a class="gitHub" href="https://github.com/joaobb/pSoft/tree/master/public_html" target="_blank">GitHub</a>
+                <a class="active" href="imc.html">IMC</a>
+            </div>
+        </header>
+
         <h1>Insert your data to calcule your IMC</h1>
         <p>Insert your peso:  <input id="peso_inp" step="any" placeholder="KG" onkeyup="imc_calculator()"></p>
         <p>Insert your altura: <input id="altura_inp" step="any" placeholder="Meters" onkeyup="imc_calculator()"></p>
-        <p id='result'>=== Type your info above ===</p>
+        <p id='result'>=== Enter your info above ===</p>
 
         <script>
             function imc_calculator() {
@@ -22,7 +30,7 @@
                 if (result < 18.5) {
                     classification = "Magreza";
                 } else if (result < 25) {
-                    classification = "Saudavel"
+                    classification = "Saudável"
                 } else if (result < 30) {
                     classification = "Sobrepeso"
                 } else if (result < 35) {
@@ -33,7 +41,9 @@
                     classification = "Obesidade III"
                 }
 
-                document.getElementById('result').innerHTML = "Your IMC is: " + result + "\n And you are in: " + classification;
+                returned = "Your IMC is: " + result + "<br> And you are in: " + classification
+                console.log(returned);
+                document.getElementById('result').innerHTML = returned;
 
             }
         </script>
