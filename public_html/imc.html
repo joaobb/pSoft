@@ -7,13 +7,14 @@
     </head>
 
     <body>
-        <header>
-            <a class="home" href="index.html">Fresco</a>
-            <div class="topnav">
-                <a class="gitHub" href="https://github.com/joaobb/pSoft/tree/master/public_html" target="_blank">GitHub</a>
-                <a class="active" href="imc.html">IMC</a>
-            </div>
-        </header>
+        <nav id="headerNav">
+                <a id="gitHub" href="https://github.com/joaobb/pSoft/tree/master/public_html" target="_blank">/gitHub</a>
+                <a id="imc_calc" href="imc.html">/imc</a>
+                <a id="homeButtom" href="index.html">
+                    <img alt="logo" src="logo.png" width="50" height="50">
+                    </a>
+            </nav>
+            
 
         <h1>Insert your data to calcule your IMC</h1>
         <p>Insert your peso:  <input id="peso_inp" step="any" placeholder="KG" onkeyup="imc_calculator()"></p>
