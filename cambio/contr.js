@@ -1,10 +1,15 @@
 import model from "./cambio.js";
 
-var cotacao = {};
+var cotacao;
 
 var getPrice = async function() {
     const api = "https://free.currconv.com/api/v7/convert?q=USD_EUR,USD_BRL&compact=ultra&apiKey=7181591a178d6b0c9a3d";
-    const fetcher = await fetch(api);
+    let fetcher = await fetch(api);
+    if (!fetcher.ok) {
+        console.log("CURRENCY API NOT WORKING, USIGN PRE-SAVED DATA :D");
+        document.getElementById("info").innerText = "CURRENCY API NOT WORKING, USIGN PRE-SAVED DATA :D"
+        fetcher = await fetch("cotacao.json") //In case the api fails
+    }
     cotacao = await fetcher.json();
 }()
 

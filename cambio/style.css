@@ -3,7 +3,7 @@ body {
     background-size: cover;
 }
 
-p#currency {
+p#currency,#info {
     text-align: center;
     padding: 25% 0;
 }
