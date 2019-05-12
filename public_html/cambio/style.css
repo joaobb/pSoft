@@ -1,0 +1,9 @@
+body {
+    background-image: url('https://source.unsplash.com/featured/?wallpaper');
+    background-size: cover;
+}
+
+p#currency,#info {
+    text-align: center;
+    padding: 25% 0;
+}
