@@ -26,7 +26,8 @@ public class HelloController {
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
-        model.addAttribute("time", LocalTime.now().getHour() > 18 ? "tarde" : "noite");
+        model.addAttribute("time", (LocalTime.now().getHour() > 18 ? "a noite" : (LocalTime.now().getHour() > 12 ? "a tarde" : "m dia")));
         return "greetings";
     }
+
 }
