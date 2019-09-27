@@ -7,6 +7,21 @@ import os
 
 port = int(sys.argv[1] if len(sys.argv) > 1 else 9090)
 
+def meuServidorzinhoLegal(path):
+    try:
+        path = path.decode('utf-8').split("\r\n")
+        jeferson = "." + path[0].split()[1]
+        print(jeferson)
+        file = open(jeferson, "r")
+        print("pos file")
+        response = file.read()
+        print("pos response")
+        file.close()
+        return response
+    except:
+        return "kkkkk"
+        
+
 def parse_request(mensagem):
     try:
         mensagem = mensagem.decode('utf-8').split("\r\n")
@@ -51,21 +66,11 @@ def parse_request(mensagem):
             if path == "/":
                 response_body = """<html><head><title>{}</title></head><body><h1>Este é o conteúdo do recurso {} neste servidor.</h1></body></html>""".format(path, path)
             else:
-                file_o = open('./' + path, 'r')
-                print("JEFERSON CARALHO")
-                response_body = file_o.read()
-                file_o.close()
+                file = open(path, "r")
+                response_body = """<html><head><title>{}</title></head><body><p>{}</p></body></html>""".format(path, file.read())
+                file.close()
 
-        print(path)
-        if path.endswith(".html") or path == "/" or status_code != 200:
-             mime_type = "text/html"
-        elif path.split(".")[1] == "jpeg":
-            print("JEFERSON CARALHO")
-            mime_type = "image/" + path.split(".")[1]
-            print(mime_type)
-        else:
-            mime_type = "text/plain"
-
+        mime_type = "text/html" if (path.endswith(".html") or path == "/" or status_code != 200) else "text/plain"
         charset = "utf-8"
 
         response = "{} {} {}\nHost: {}\nContent-Type: {}; charset={}\n\n{}".format(prot_vers, status_code, status, headers['Host'], mime_type, charset, response_body)
@@ -86,7 +91,9 @@ with socket.socket() as s:
         with connection:
             print("{} has connected to the server".format(address[0]))
             request = connection.recv(4096)
-            connection.send(parse_request(request).encode())
+            ##print(request)
+            connection.send(meuServidorzinhoLegal(request).encode())
+            #connection.send(parse_request(request).encode())
             connection.close()
 
 s.close()

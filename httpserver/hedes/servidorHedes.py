@@ -11,7 +11,7 @@ def parse_request(mensagem):
     try:
         mensagem = mensagem.decode('utf-8').split("\r\n")
         mppRaw = mensagem[0].split()
-        print(mensagem)
+        #print(mensagem)
         #Every method available on the server
         methods = ["GET"]
         #Every accessible path on the server
@@ -21,6 +21,8 @@ def parse_request(mensagem):
         path = mppRaw[1]
         prot_vers = mppRaw[2]
 
+        
+
         headers = {}
         for head in range(1, len(mensagem) - 2):
             spl_head = mensagem[head].split(':', 1) 
@@ -28,6 +30,7 @@ def parse_request(mensagem):
 
         if path != "/":
             path = path[1:]
+            print(path)
                 
         if method not in methods:
             status_code = 405
@@ -51,24 +54,28 @@ def parse_request(mensagem):
             if path == "/":
                 response_body = """<html><head><title>{}</title></head><body><h1>Este é o conteúdo do recurso {} neste servidor.</h1></body></html>""".format(path, path)
             else:
-                file_o = open('./' + path, 'r')
-                print("JEFERSON CARALHO")
-                response_body = file_o.read()
-                file_o.close()
-
-        print(path)
+                file = open(path, "r")
+                print("chegou em 55")
+                if path.endswith(".html"): response_body = ("""<html><head><title>{}</title></head><body><p>{}</p></body></html>""".format(path, file.read()))
+                else: 
+                    response_body = file.read()
+                file.close()
+        
         if path.endswith(".html") or path == "/" or status_code != 200:
              mime_type = "text/html"
-        elif path.split(".")[1] == "jpeg":
-            print("JEFERSON CARALHO")
-            mime_type = "image/" + path.split(".")[1]
+        elif status_code == 200:
+            mime_type = "image/" + path[1::]
             print(mime_type)
         else:
             mime_type = "text/plain"
 
+        
         charset = "utf-8"
-
-        response = "{} {} {}\nHost: {}\nContent-Type: {}; charset={}\n\n{}".format(prot_vers, status_code, status, headers['Host'], mime_type, charset, response_body)
+        
+        downloadableHeader = ('Content-Disposition', "attachment; filename= %s" % path[1::]) 
+        
+        print("pos file read")
+        response = "{} {} {} {}\nHost: {}\nContent-Type: {}; charset={}\n\n{}".format(prot_vers, status_code, status, downloadableHeader, headers['Host'], mime_type, charset, response_body)
         return response
     except:
         print("=== Error while parsing request ===")
@@ -86,6 +93,8 @@ with socket.socket() as s:
         with connection:
             print("{} has connected to the server".format(address[0]))
             request = connection.recv(4096)
+            #print(request)
+            #connection.send(meuServidorzinhoLegal(request).encode())
             connection.send(parse_request(request).encode())
             connection.close()
 
